@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'tailwind.css' %}" media="not print">
+    <link rel="stylesheet" href="{% static 'printing.css' %}" media="print">
+</head>
+<body class="bg-stone-800 text-stone-50">
+    <header class="px-2 py-4">
+        <h1 class="text-4xl text-center">{{ title }}</h1>
+        <nav class="flex justify-center py-4">
+            <ul class="flex flex-wrap justify-center gap-3">
+                {% if request.user.is_staff %}
+                <li><a class="px-4 py-1.5 bg-red-700 hover:bg-red-600 rounded"
+                    href="/admin">Admin</a></li>
+                {% endif %}
+                <li><a class="px-4 py-1.5 bg-neutral-600 hover:bg-neutral-500 rounded"
+                    href="{% url "content:index" %}">Inicio</a></li>
+                <li><a class="px-4 py-1.5 bg-lime-700 hover:bg-lime-600 rounded"
+                    href="{% url "content:all" %}">Imagenes</a></li>
+                <li><a class="px-4 py-1.5 bg-lime-700 hover:bg-lime-600 rounded"
+                    href="{% url "content:qglist" %}">Lotes</a></li>
+                <li><a class="px-4 py-1.5 bg-lime-700 hover:bg-lime-600 rounded"
+                    href="{% url "content:qgnew" %}">Nuevo Lote</a></li>
+                <li><a class="px-4 py-1.5 bg-neutral-600 hover:bg-neutral-500 rounded"
+                    href="{% url "content:qglist" %}?all">Todos los Lotes</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock content %}
+    </main>
+</body>
+</html>

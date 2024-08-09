@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul class="px-2">
+        {% for qg in querygroups %}
+        <li class="flex px-4 py-2 mb-2 gap-4 rounded-lg items-center bg-neutral-950">
+            <a class="text-lg px-5 py-1 rounded bg-neutral-600 hover:bg-neutral-500"
+            href="{% url "content:qgdetail" pk=qg.pk %}">{{ qg.pk }}</a>
+            {% with type=qg.type %}
+            <div class="text-sm font-semibold
+                {% if type == 40 %}
+                text-purple-400
+                {% elif type == 50 %}
+                text-blue-400
+                {% else %}
+                text-emerald-400
+                {% endif %}
+            ">
+                {{ qg.get_type_str }}
+            </div>
+            {% endwith %}
+            {% with state=qg.get_state_str %}
+            <div class="px-1 py-1 rounded text-neutral-950 font-bold
+                {% if state == 'vacio' %}
+                bg-blue-400
+                {% elif state == 'en proceso' %}
+                bg-yellow-400
+                {% elif state == 'listo' %}
+                bg-red-400
+                {% else %}
+                bg-neutral-400
+                {% endif %}">
+                {{ qg.get_state_str|upper }}
+                {% if state == 'en proceso' %} ({{ qg.imagelist.count }}/{{ qg.get_max }}) {% endif %}
+            </div>
+            {% endwith %}
+        </li>
+        {% empty %}
+        <li class="px-2 py-1 rounded text-neutral-950 font-bold bg-red-400 w-fit mx-auto">No hay lotes para mostrar.</li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

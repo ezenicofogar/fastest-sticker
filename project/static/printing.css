@@ -1,0 +1,50 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    font-family: sans-serif;
+}
+header {
+    display: none;
+}
+.dont-print {
+    display: none;
+}
+.container-print {
+    display: flex;
+    gap: 1mm;
+    flex-wrap: wrap;
+}
+.box-print-40,
+.box-print-50,
+.box-print-70,
+.box-print-mini {
+    border: 0.05mm solid #0008;
+    box-sizing: border-box;
+}
+.box-print-40 {
+    width: 39mm;
+}
+.box-print-50 {
+    width: 49mm;
+}
+.box-print-70 {
+    width: 66mm;
+}
+.box-print-mini {
+    width: 19mm;
+}
+.text-print {
+    text-align: center;
+    line-height: 3.5mm;
+    font-size: 3.5mm;
+    font-weight: 600;
+}
+.image-print {
+    object-fit: contain;
+    object-position: 50% 0%;
+    width: 100%;
+    aspect-ratio: 1/1;
+    transform: translateY(0.5mm);
+}

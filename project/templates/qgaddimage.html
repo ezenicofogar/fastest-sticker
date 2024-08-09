@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form class="mx-auto max-w-screen-sm p-4 bg-neutral-200 text-neutral-950 rounded-lg" action="." method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input class="w-full mt-4 px-4 py-2 shadow bg-lime-400 hover:bg-lime-300 rounded" type="submit" value="Agregar">
+    </form>
+{% endblock content %}

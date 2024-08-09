@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="text-center text-xl pb-2 dont-print">
+    <span class="pr-5">{{ qg_size }}</span>
+    {{ qg_state|upper }}
+</h1>
+{% if querygroup.get_state_str != 'impreso' %}
+<div class="flex flex-wrap justify-center py-3 dont-print gap-2 text-lg">
+    {% if querygroup.get_state_str == 'listo' %}
+        <form action="./printed/" method="post">
+            {% csrf_token %}
+            <input class="px-4 py-1.5 bg-red-700 hover:bg-red-500 rounded" type="submit" value="Marcar como IMPRESO">
+        </form>
+    {% else %}
+    <a class="px-4 py-1.5 bg-lime-800 hover:bg-lime-600 rounded" href="./add/">Añadir</a>
+    {% endif %}
+</div>
+{% endif %}
+<div class="flex flex-wrap p-2 gap-2 justify-center container-print">
+    {% for img in querygroup.imagelist.all %}
+    <div class="p-2 shadow-lg bg-stone-700 rounded-xl box-print-{{ querygroup.type }}">
+        <p class="text-center pb-2 text-print">
+            <span class="hidden">L{{ querygroup.pk }} -</span>
+            {{ img.pk }}
+        </p>
+        <img class="w-24 h-24 object-contain image-print" src="{{ img.image.url }}" alt="">
+    </div>
+    {% empty %}
+    <p>No hay imágenes para mostrar</p>
+    {% endfor %}
+</div>
+{% endblock content %}
